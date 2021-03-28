@@ -317,6 +317,53 @@ fprintf("\tDielectric Loss: %.4f Np/m = %.4f dB/m\n", ad,...
 
 %% problem 7
 
+% plate separation in mm
+a = 15;
+
+% plate seperation in meters
+a = a*1e-3;
+
+% symbolic variable to represent mode and frequecy
+syms n;
+syms f;
+
+% permeability 
+u = 4*pi*1e-7;
+
+% permittivity
+e = 8.854e-12;
+
+% display cutoff frequency expression
+fc = n/(2*a*sqrt(u*e));
+fprintf("7a)\tfc = ");
+disp(vpa(fc,4));
+
+% determine modal characteristic impedance expression
+ZTE = sqrt(u/e)/sqrt(1-(fc/f)^2);
+fprintf("\tZTE = ");
+disp(vpa(ZTE,4));
+
+% for TM modes frequency expression is the same
+fprintf("7b)\tfc = ");
+disp(vpa(fc,4));
+
+% determine modal characteristic impedance expression
+ZTM = sqrt(u/e)*sqrt(1-(fc/f)^2);
+fprintf("\tZTM = ");
+disp(vpa(ZTE,4));
+
+% determine number of modes that would propagate if f = 33Ghz
+n = floor(double(solve(fc == 33e9)));
+
+% output results
+fprintf("7c) %d TE modes would propagate.\n",n);
+
+%% problem 8
+
+
+
+
+
 
 
 
