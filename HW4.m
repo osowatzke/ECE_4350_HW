@@ -188,6 +188,51 @@ fprintf("3c) TEM Progation Constant: %.4f rad/m\n",B);
 % output transverse wave impedance
 fprintf("3c) TEM Transverse-Wave Impedance: %.4f Ohms\n",ZTEM);
 
+%% problem 4
+
+% waveguide dimensions in inches
+a = 5.1;
+b = 2.55;
+
+% convert waveguide dimensions to meters
+a = a*0.0254;
+b = b*0.0254;
+
+% frequency
+f = 10e9;
+w = 2*pi*f;
+
+% permeability
+u = 4*pi*1e-7;
+
+% permittivity
+e = 8.854e-12;
+
+% determine cutoff frequency
+fco = 1/(2*a*sqrt(u*e));
+
+% determine wavenumber
+k = 2*pi*f*sqrt(u*e);
+
+% determine propagation constant
+B = k*sqrt(1-(fco/f)^2);
+
+% determine amplitude of Hz wave
+kx = pi/a;
+A = kx*10/(1i*B);
+
+% output results
+fprintf("(4)\tEx=Ez=Hy=0\n");
+fprintf("\tHz = -j%.4fcos(%.4fx) A/m\n",abs(imag(A)),kx);
+fprintf("\tEy = %.4fsin(%.4fx) V/m\n",real(-1i*w*u*A/kx),kx);
+fprintf("\tHx = 10sin(%.4fx) A/m\n",kx);
+
+%% problem 5
+
+
+
+
+
 
 
 
