@@ -264,6 +264,58 @@ PT = E0^2*b*a/(4*ZTE);
 % output maximum power transfer
 fprintf("(5) Maximum Power Transfer: %.4f kW\n", PT*1e-3);
 
+%% problem 6
+
+% waveguide dimensions in inches
+a = 0.75;
+b = 0.375;
+
+% convert waveguide dimensions to meters
+a = a*0.0254;
+b = b*0.0254;
+
+% note both materials are nonmagnetic and share same permeability
+u = 4*pi*1e-7;
+
+% dielectric permittivity
+e = 2.1*8.854e-12;
+
+% conductor conducitity
+s = 5.8e7;
+
+% frequency 
+f = 12e9;
+
+% conductivity of conductor 
+Rs = sqrt(pi*f*u/s);
+
+% characteristic impedance of dielectric
+n = sqrt(u/e);
+
+% wavelength
+L = 1/(f*sqrt(u*e));
+
+% conductor loss
+ac = Rs/(b*n*sqrt(1-(L/(2*a))^2))*(1+2*b/a*(L/(2*a))^2);
+
+% output conductor loss
+fprintf("(6)\tConductor Loss: %.4f Np/m = %.4f dB/m\n", ac,...
+    20*log10(exp(ac)));
+
+% loss tangent
+loss_tan = 5e-4;
+
+% wave number
+k = 2*pi*f*sqrt(u*e);
+
+% dielectric loss
+ad = k*loss_tan/(2*sqrt(1-(L/(2*a))^2));
+
+% output dielectric loss
+fprintf("\tDielectric Loss: %.4f Np/m = %.4f dB/m\n", ad,...
+    20*log10(exp(ad)));
+
+%% problem 7
 
 
 
