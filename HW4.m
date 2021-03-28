@@ -229,6 +229,41 @@ fprintf("\tHx = 10sin(%.4fx) A/m\n",kx);
 
 %% problem 5
 
+% waveguide dimensions in inches
+a = 0.75;
+b = 0.375;
+
+% convert waveguide dimensions to meters
+a = a*0.0254;
+b = b*0.0254;
+
+% permeability 
+u = 4*pi*1e-7;
+
+% permittivity
+e = 8.854e-12;
+
+% characteristic impedance of the dielectric
+n = sqrt(u/e);
+
+% cutoff frequency
+fc = 1/(2*a*sqrt(u*e));
+
+% frequency
+f = 12e9;
+
+% determine transverse wave impedance
+ZTE = n/sqrt(1-(fc/f)^2);
+
+% maximum electric field
+E0 = 2e6;
+
+% maximum power transfer
+PT = E0^2*b*a/(4*ZTE);
+
+% output maximum power transfer
+fprintf("(5) Maximum Power Transfer: %.4f kW\n", PT*1e-3);
+
 
 
 
