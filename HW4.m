@@ -129,6 +129,66 @@ fprintf("2c) TEM Transverse-Wave Impedance: %.4f Ohms\n",ZTEM);
 
 %% problem 3
 
+% waveguide dimensions in inches
+a = 5.1;
+b = 2.55;
+
+% convert waveguide dimensions to meters
+a = a*0.0254;
+b = b*0.0254;
+
+% permeability 
+u = 4*pi*1e-7;
+
+% permittivity
+e = 8.854e-12;
+
+% determine cutoff frequency
+fco = 1/(2*pi*sqrt(u*e))*sqrt((pi/a)^2+(pi/b)^2);
+
+% determine cutoff wavelength
+Lco = (1/sqrt(u*e))/fco;
+
+% output cutoff wavelength
+fprintf("3a) Cutoff Wavelength: %.4f m\n", Lco);
+
+% output cutoff frequency
+fprintf("3a) Cutoff Frequency: %.4f GHz\n",fco*1e-9);
+
+% frequency
+f = 10e9;
+
+% determine wavenumber
+k = 2*pi*f*sqrt(u*e);
+
+% determine propagation constant
+B = k*sqrt(1-(fco/f)^2);
+
+% determine characteristic impedance of dielectric
+n = sqrt(u/e);
+
+% Transverse-wave impedance
+ZTM = n*sqrt(1-(fco/f)^2);
+
+% output propation constant
+fprintf("3b) Progation Constant: %.4f rad/m\n",B);
+
+% output transverse-wave impedance
+fprintf("3b) Transverse-Wave Impedance: %.4f Ohms\n", ZTM);
+
+% determine TEM propagation constant
+B = k;
+
+% determine TEM transverse wave impedance
+ZTEM = n;
+
+% output propogation constant
+fprintf("3c) TEM Progation Constant: %.4f rad/m\n",B);
+
+% output transverse wave impedance
+fprintf("3c) TEM Transverse-Wave Impedance: %.4f Ohms\n",ZTEM);
+
+
 
 
 
