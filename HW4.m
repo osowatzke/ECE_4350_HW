@@ -360,8 +360,66 @@ fprintf("7c) %d TE modes would propagate.\n",n);
 
 %% problem 8
 
+% plate spacing in cm
+a = 1.5;
 
+% plate spacing in m
+a = a*1e-2;
 
+% loss tangent is zero for air
+% => air has no losses
+fprintf("(8)\tWith Air Dielectric\n");
+fprintf("\tDielectric Loss: 0 dB/m\n");
+
+%frequency
+f = 12e9;
+
+% permeability (same for all cases and materials)
+u = 4*pi*1e-7;
+
+% permittivity of air
+e = 8.854e-12;
+
+% conducitivity
+s = 5.8e7;
+
+% surface resistance
+Rs = sqrt(pi*f*u/s);
+
+% characteristic impedance of air dielectric
+n = sqrt(u/e);
+
+% cutoff frequency with air dielectric
+fc = 1/(2*a*sqrt(u*e));
+
+% conductor loss;
+ac = 2*Rs/(n*a*sqrt(1-(fc/f)^2));
+
+% output conductor loss
+fprintf("\tConductor Loss: %.4f dB/m\n\n", 20*log10(exp(ac)));
+
+% permittivity of glass dielectric
+e = 4*8.854e-12;
+
+% characteristic impedance of glass dielectric
+n = sqrt(u/e);
+
+% cutoff frequency with glass dielectric
+fc = 1/(2*a*sqrt(u*e));
+
+% conductor loss
+ac = 2*Rs/(n*a*sqrt(1-(fc/f)^2));
+
+% loss tangenent
+loss_tan = 2e-3;
+
+% dielectric loss
+ad = 2*pi*f*sqrt(u*e)*loss_tan/(2*sqrt(1-(fc/f)^2));
+
+% output losses
+fprintf("\tWith Glass Dielectric\n");
+fprintf("\tDielectric Loss: %.4f dB/m\n", 20*log10(exp(ad)));
+fprintf("\tConductor Loss: %.4f dB/m\n", 20*log10(exp(ac)));
 
 
 
